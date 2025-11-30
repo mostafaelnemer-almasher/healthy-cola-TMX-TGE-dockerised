@@ -158,15 +158,23 @@ if (!function_exists('site_logo')) {
         }
 
         $default_dark = [
-            'default' => 'images/logo.png',
-            'retina' => 'images/logo2x.png',
-            'mail' => 'images/logo-mail.png',
+//            'default' => 'images/logo.png',
+//            'retina' => 'images/logo2x.png',
+//            'mail' => 'images/logo-mail.png',
+
+            'default' => 'images/E3-Blockraise-2.svg',
+            'retina' => 'images/E3-Blockraise-2.svg',
+            'mail' => 'images/E3-Blockraise-2.svg',
         ];
 
         $default_light = [
-            'default' => 'images/logo-light.png',
-            'retina' => 'images/logo-light2x.png',
-            'mail' => 'images/logo-mail.png',
+//            'default' => 'images/logo-light.png',
+//            'retina' => 'images/logo-light2x.png',
+//            'mail' => 'images/logo-mail.png',
+
+            'default' => 'images/E3-Blockraise-2.svg',
+            'retina' => 'images/E3-Blockraise-2.svg',
+            'mail' => 'images/E3-Blockraise-2.svg',
         ];
 
         $default = ($ver == 'light') ? $default_light : $default_dark;

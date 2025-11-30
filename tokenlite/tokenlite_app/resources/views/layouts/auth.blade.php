@@ -19,14 +19,14 @@
     {{ html_string(get_setting('site_header_code')) }}
     @endif
 </head>
-@php 
+@php
 $auth_layout = (gws('theme_auth_layout', 'default'));
 $logo_light = ($auth_layout=='center-dark') ? 'logo-light' : 'logo';
 $body_class = ($auth_layout=='center-dark'||$auth_layout=='center-light') ? ' page-ath-alt' : '';
 $body_bgc   = ($auth_layout=='center-dark') ? ' bg-secondary' : '';
 $wrap_class = ($auth_layout=='default') ? ' flex-row-reverse' : '';
 
-$header_logo = '<div class="page-ath-header"><a href="'.url('/').'" class="page-ath-logo"><img class="page-ath-logo-img" src="'. site_whitelabel($logo_light) .'" srcset="'. site_whitelabel($logo_light.'2x') .'" alt="'. site_whitelabel('name') .'"></a></div>';
+$header_logo = '<div class="page-ath-header text-center"><a href="'.url('/').'" class="page-ath-logo"><img class="page-ath-logo-img" src="'. site_whitelabel($logo_light) .'" srcset="'. site_whitelabel($logo_light.'2x') .'" alt="'. site_whitelabel('name') .'"></a></div>';
 @endphp
 <body class="page-ath theme-modern page-ath-modern{{ $body_class.$body_bgc }}">
 
@@ -34,7 +34,7 @@ $header_logo = '<div class="page-ath-header"><a href="'.url('/').'" class="page-
         <div class="page-ath-content">
             {!! $header_logo !!}
             @yield('content')
-            
+
             <div class="page-ath-footer">
                 @if(is_show_social('login'))
                     {!! UserPanel::social_links('', ['class' => 'mb-3']) !!}

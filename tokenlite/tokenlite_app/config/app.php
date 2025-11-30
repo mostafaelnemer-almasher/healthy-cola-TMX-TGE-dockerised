@@ -15,8 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'TokenLite'),
     'corename' => 'TokenLite',
-    'version' => '1.8.0',
-    'update' => '20241116',
+    'version' => '1.8.1',
+    'update' => '20241117',
     'author' => 'Softnio',
 
     /*
