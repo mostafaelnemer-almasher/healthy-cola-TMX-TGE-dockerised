@@ -1,0 +1,98 @@
+version: "3.8"
+
+services:
+  # Nginx Web Server
+  nginx:
+    image: nginx:alpine
+    container_name: tokenlite-nginx-${PROJECT_NAME:-hcola}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./tokenlite/public:/var/www/public:ro
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - app
+    networks:
+      - tokenlite-network
+
+  # PHP-FPM Application
+  app:
+    build:
+      context: .
+      target: ${DOCKER_TARGET:-production}
+    container_name: tokenlite-app-${PROJECT_NAME:-hcola}
+    restart: unless-stopped
+    working_dir: /var/www/tokenlite_app
+    volumes:
+      - ./tokenlite/public:/var/www/public:ro
+      - ./.env:/var/www/tokenlite_app/.env
+      - vendor-data:/var/www/tokenlite_app/vendor
+      - storage-data:/var/www/tokenlite_app/storage
+    networks:
+      - tokenlite-network
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      - DB_HOST=database
+      - DB_DATABASE=${DB_DATABASE:-tokenlite}
+      - DB_USERNAME=${DB_USERNAME:-tokenlite_user}
+      - DB_PASSWORD=${DB_PASSWORD:-tokenlite_password}
+      - REDIS_HOST=redis
+    healthcheck:
+      test: [ "CMD", "php", "-v" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MySQL Database
+  database:
+    image: mysql:8.0
+    container_name: tokenlite-database-${PROJECT_NAME:-hcola}
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-tokenlite}
+      MYSQL_USER: ${DB_USERNAME:-tokenlite_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-tokenlite_password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_password}
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    volumes:
+      - database-data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+      - ./logs/mysql:/var/log/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      - tokenlite-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: tokenlite-redis-${PROJECT_NAME:-hcola}
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - tokenlite-network
+
+networks:
+  tokenlite-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
+  vendor-data:
+    driver: local
+  storage-data:
+    driver: local
+  database-data:
+    driver: local

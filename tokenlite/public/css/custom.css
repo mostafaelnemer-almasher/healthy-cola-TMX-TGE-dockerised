@@ -1,0 +1,72 @@
+/*! TokenLite - ICO Token Sale Dashboard by Softnio | @version v1.8.0 */
+/*! ## WRITE YOUR OWN SYTLE AFTER FROM ADMIN PANEL */
+
+
+/* Navbar (menu row) */
+.navbar,
+.navbar-default,
+.navbar-nav{
+  background-color:#FFFFFF!important;
+  border-color:#FFFFFF!important;
+  color:#000000!important;
+}
+
+/* Navbar link hover */
+.navbar a:hover,
+.navbar-nav a:hover,
+.navbar-menu a:hover,
+.navbar-page a:hover{
+  color:#555555!important;
+}
+
+/* --- Fixed header layout --- */
+.topbar-wrap{position:static!important;}
+
+.topbar{
+  position:fixed!important;
+  top:0;left:0;right:0;
+  z-index:1100;
+  height:92px;            /* adjust if your topbar height differs */
+}
+
+.navbar{
+  position:fixed!important;
+  top:92px;               /* must equal .topbar height */
+  left:0;right:0;
+  z-index:1099;
+  background:#fff;
+  overflow:visible!important;  /* allow dropdowns to escape */
+}
+
+/* Offset page so content isn't hidden under fixed bars */
+.page-content{
+  padding-top:192px;      /* topbar(92) + navbar(~100). Tweak if needed */
+}
+
+/* Buttons */
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active{
+  background-color:#FCC517!important;
+  border-color:#FCC517!important;
+  color:#000000!important;
+}
+
+/* Dashboard Logo */
+.topbar-logo img{
+  height:80px!important;
+  max-height:none!important;
+}
+
+/* Auth Page Logo */
+.page-ath-logo-img{
+  height:132px!important;
+  max-height:none!important;
+  width:auto!important;
+}
+
+/* Make the "Sign in" heading smaller */
+.page-ath-heading {
+  font-size: 34px !important;   /* adjust to your preference */
+  font-weight: 600;             /* keep it bold but smaller */
+}

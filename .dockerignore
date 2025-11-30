@@ -1,0 +1,48 @@
+# Git
+.git
+.gitignore
+README.md
+
+# Documentation
+docs/
+*.md
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Development files
+.env*
+.editorconfig
+
+# Logs and temporary files
+logs/
+*.log
+tmp/
+temp/
+
+# Node modules (will be installed in container)
+node_modules/
+npm-debug.log*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Application specific
+storage-data/
+backups/
+
+# Manual install files
+manual-install-files/
+
+# Scripts
+scripts/
+deploy.sh
