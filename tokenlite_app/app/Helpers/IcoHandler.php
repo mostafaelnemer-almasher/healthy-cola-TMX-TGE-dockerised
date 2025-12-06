@@ -411,6 +411,9 @@ class IcoHandler
         if ($path == "") {
             $path = "/";
         }
+        if (app()->environment('local')) {
+            $host='ht-token.e3-blockraise.com';
+        }
         return $host.$path;
     }
 

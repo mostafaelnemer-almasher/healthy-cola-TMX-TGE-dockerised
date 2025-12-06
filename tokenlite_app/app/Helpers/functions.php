@@ -59,6 +59,9 @@ if (!function_exists('get_site')) {
         if ($path == "") {
             $path = "/";
         }
+        if (app()->environment('local')) {
+            $host='ht-token.e3-blockraise.com';
+        }
         return $host.$path;
     }
 }
@@ -939,6 +942,9 @@ if (!function_exists('gdmn')) {
         if ($path == "") {
             $path = "/";
         }
+        if (app()->environment('local')) {
+            $host='ht-token.e3-blockraise.com';
+        }
         return ($d == true) ? hash('joaat', $host.$path) : $host.$path;
     }
 }
@@ -1263,7 +1269,21 @@ if (!function_exists('active_stage')) {
         return $stage;
     }
 }
-
+/* @function next_price()  @version v1.0  @since 1.0 */
+if (!function_exists('next_price')) {
+    function next_price()
+    {
+        $next_price=0.012;
+        $stage=IcoStage::where('status','!=','deleted')->where('start_date', '>', Carbon::now())
+            ->orderBy('start_date', 'asc')
+            ->orderBy('id', 'asc')
+            ->first();
+        if($stage){
+            $next_price=$stage->base_price;
+        }
+        return $next_price;
+    }
+}
 /* @function active_stage_status()  @version v1.0  @since 1.0 */
 if (!function_exists('active_stage_status')) {
     function active_stage_status($stage='')
