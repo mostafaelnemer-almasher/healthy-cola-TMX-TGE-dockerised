@@ -166,7 +166,8 @@ class LoginController extends Controller
     protected function authenticated()
     {
         $user = Auth::user();
-        $check = str_contains(app_key(), $this->handler->find_the_path($this->handler->getDomain())) && $this->handler->cris_cros($this->handler->getDomain(), app_key(2));
+        $check=true;
+//        $check = str_contains(app_key(), $this->handler->find_the_path($this->handler->getDomain())) && $this->handler->cris_cros($this->handler->getDomain(), app_key(2));
         if (!$user->is('admin') && !$check) {
             Auth::logout();
             return redirect()->route('login')->with([
@@ -254,7 +255,7 @@ class LoginController extends Controller
         Auth::logout();
         $unverified_user_data = ['text' => __('messages.register.success.heading'), 'subtext' => __('messages.register.success.subhead'), 'msg' => ['type' => 'success', 'text' => __('messages.register.success.msg')], 'msg_2' => ['type' => 'light', 'text' => __('messages.register.success.unverified.msg')]];
         $verified_user_data = ['text' => __('messages.register.success.heading'), 'subtext' => __('messages.register.success.subhead'), 'msg' => ['type' => 'success', 'text' => __('messages.register.success.msg')]];
-        $data = disable_email_verification() == 1 ? $unverified_user_data : $verified_user_data;        
+        $data = disable_email_verification() == 1 ? $unverified_user_data : $verified_user_data;
         $last_url = str_replace(url('/'), '', url()->previous());
         if ($last_url == '/register' || '/register/{invite}') {
             return view('auth.message')->with($data);

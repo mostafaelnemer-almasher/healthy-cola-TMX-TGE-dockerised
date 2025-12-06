@@ -348,7 +348,7 @@ class IcoHandler
                 }
 
                 $address = isset($pm->address) ? $pm->address : '';
-                
+
                 if ($address && $ext == 'array') {
                     return $pm;
                 }

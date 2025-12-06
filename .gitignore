@@ -1,3 +1,6 @@
 .env
 logs
 docker/mysql/data
+.idea
+/tokenlite_app/.env
+/tokenlite_app/vendor
