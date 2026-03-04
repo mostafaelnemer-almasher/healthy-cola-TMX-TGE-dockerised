@@ -105,6 +105,7 @@ Route::prefix('admin')->middleware(['auth', 'admin', 'verify_user', 'g2fa', 'ico
     Route::get('/stages', 'Admin\IcoController@index')->middleware('ico')->name('stages');
     Route::get('/stages/create', 'Admin\IcoController@create_stage')->middleware('ico')->name('stages.create');
     Route::get('/stages/{id}', 'Admin\IcoController@edit_stage')->middleware('ico')->name('stages.edit');
+    Route::get('/users/{id}/settings', 'Admin\UsersController@referral_setting')->name('users.settings.referral');
     Route::get('/users/{role?}', 'Admin\UsersController@index')->middleware('ico')->name('users'); //v1.1.0
     Route::get('/users/wallet/change-request', 'Admin\UsersController@wallet_change_request')->middleware('ico')->name('users.wallet.change');
     Route::get('/kyc-list/{status?}', 'Admin\KycController@index')->middleware('ico')->name('kycs'); //v1.1.0
@@ -120,6 +121,7 @@ Route::prefix('admin')->middleware(['auth', 'admin', 'verify_user', 'g2fa', 'ico
 
     /* Admin Ajax Route */
     Route::name('ajax.')->prefix('ajax')->middleware(['ico'])->group(function () {
+        Route::get('/users/{id}/settings', 'Admin\UsersController@referral_setting_update')->name('users.settings.referral');
         Route::post('/users/view', 'Admin\UsersController@status')->name('users.view')->middleware('demo_user');
         Route::post('/users/showinfo', 'Admin\UsersController@show')->name('users.show');
         Route::post('/users/delete/all', 'Admin\UsersController@delete_unverified_user')->name('users.delete')->middleware('demo_user');

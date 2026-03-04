@@ -1,0 +1,1 @@
+/usr/local/bin/ea-php82 /home/e3business/public_html/token.healthycola.com/tokenlite/tokenlite_app/artisan schedule:run >> /dev/null 2>&1
